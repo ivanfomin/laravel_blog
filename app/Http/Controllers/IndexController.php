@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use Auth;
 
 class IndexController extends Controller
 {
     protected $header;
     protected $message;
+    protected $user;
 
     public function __construct()
     {
@@ -26,6 +28,8 @@ class IndexController extends Controller
 
         $this->middleware('auth');
 
+
+
     }
 
 
@@ -36,9 +40,14 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $articles = Article::select(['id', 'name', 'brief', 'img', 'content'])->get();
 
-        return view('article')->with(['header' => $this->header, 'message' => $this->message, 'articles' => $articles]);
+
+        //dump($this->user);
+        $this->user = Auth::user();
+
+        $articles = Article::select(['id', 'name', 'brief', 'img', 'content','user_id'])->get();
+
+        return view('article')->with(['header' => $this->header, 'message' => $this->message, 'articles' => $articles, 'user' => $this->user]);
 
     }
 
@@ -69,6 +78,9 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
+        $this->user = Auth::user();
+
+
         $request->flash();
         $this->validate($request, [
             'name' => 'required |  max:255 ',
@@ -76,12 +88,13 @@ class IndexController extends Controller
             'content' => 'required'
         ]);
 
+
         $data = $request->all();
 
         $article = new Article();
 
         $article->fill($data);
-
+        $article->user_id = $this->user->id;
         $article->save();
 
         return redirect('/');
