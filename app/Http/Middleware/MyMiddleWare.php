@@ -15,6 +15,9 @@ class MyMiddleWare
      */
     public function handle($request, Closure $next)
     {
+        if($request->route('id') == 0) {
+            return redirect()->route('allArticles');
+        }
         return $next($request);
     }
 }

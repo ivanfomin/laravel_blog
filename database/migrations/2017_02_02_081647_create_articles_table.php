@@ -15,6 +15,10 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('git ', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name', 63);
+            $table->string('brief', 127);
+            $table->string('img', 255);
+            $table->text('content');
             $table->timestamps();
         });
     }
