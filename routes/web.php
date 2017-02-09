@@ -15,7 +15,7 @@
     return view('welcome');
 });*/
 
-Route::get('/', 'IndexController@index')->name('home');
+Route::get('/', 'IndexController@index')->name('articles');
 
 Route::get('article/add','IndexController@add')->name('addArticle');
 
@@ -30,3 +30,7 @@ Route::post('/article/destroy', 'IndexController@destroy')->name('articleDestroy
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

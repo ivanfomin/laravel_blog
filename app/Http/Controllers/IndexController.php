@@ -23,6 +23,9 @@ class IndexController extends Controller
               Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и,
                в более недавнее время, программы электронной вёрстки типа Aldus PageMaker,
                 в шаблонах которых используется Lorem Ipsum.';
+
+        $this->middleware('auth');
+
     }
 
 
@@ -86,7 +89,7 @@ class IndexController extends Controller
 
     /**
      * Display the specified resource.
-     *
+  321654   *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */

@@ -19,7 +19,7 @@
                         <p> {!! $article->content !!}</p>
                     </div>
                 </div>
-                <p><a class="btn btn-default" href="{{ route('home') }}" role="button"> Назад &raquo;</a></p>
+                <p><a class="btn btn-default" href="{{ route('articles') }}" role="button"> Назад &raquo;</a></p>
             @endif
         </div>
         <hr>
