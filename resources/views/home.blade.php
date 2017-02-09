@@ -10,7 +10,8 @@
 
                 <div class="panel-body">
                     You are logged in!
-                    Yes
+                    <p><a class="btn btn-default" href="{{ route('articles') }}" role="button"> На главную &raquo;</a></p>
+
                 </div>
             </div>
         </div>
