@@ -13,7 +13,7 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('git ', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
