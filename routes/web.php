@@ -17,7 +17,7 @@
 
 Route::get('/', 'IndexController@index')->name('articles');
 
-Route::get('article/add','IndexController@add')->name('addArticle');
+Route::get('article/add', 'IndexController@add')->name('addArticle');
 
 Route::post('/article/add', 'IndexController@store')->name('articleStore');
 
@@ -25,14 +25,11 @@ Route::get('/article/update{id}', 'IndexController@edit')->name('editArticle');
 
 Route::post('/article/update', 'IndexController@update')->name('articleUpdate');
 
-Route::get('/article/{id}',['uses'=>'IndexController@show','as'=>'articleShow', 'middleware'=>'myMiddle']);
+Route::get('/article/{id}', ['uses' => 'IndexController@show', 'as' => 'articleShow', 'middleware' => 'myMiddle']);
 
-Route::delete('/article/delete/{article}',['uses'=>'IndexController@formDelete'])->name('articleDelete');
+Route::delete('/article/delete/{article}', ['uses' => 'IndexController@formDelete'])->name('articleDelete');
 
 Route::post('/article/destroy', 'IndexController@destroy')->name('articleDestroy');
-
-
-
 
 
 Auth::routes();

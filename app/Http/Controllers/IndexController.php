@@ -47,7 +47,7 @@ class IndexController extends Controller
 
         $articles = Article::select(['id', 'name', 'brief', 'img', 'content', 'user_id'])->get();
 
-        return view('article')->with(['header' => $this->header, 'message' => $this->message, 'articles' => $articles, 'user' => $this->user]);
+        return view('article', ['header' => $this->header, 'message' => $this->message, 'articles' => $articles, 'user' => $this->user]);
 
     }
 
@@ -56,7 +56,7 @@ class IndexController extends Controller
         if ($request->isMethod('post')) {
             $request->flash();
         }
-        return view('add-content')->with(['header' => $this->header, 'message' => $this->message]);
+        return view('add-content',['header' => $this->header, 'message' => $this->message]);
 
     }
 
@@ -64,7 +64,7 @@ class IndexController extends Controller
     {
         $article = Article::find($id);
 
-        return view('update-content')->with(['header' => $this->header, 'message' => $this->message, 'article' => $article]);
+        return view('update-content', ['header' => $this->header, 'message' => $this->message, 'article' => $article]);
 
 
     }
@@ -99,11 +99,11 @@ class IndexController extends Controller
         }*/
         $article = new Article();
 
-       /*if( $request->user()->cannot('add', $article)) {
-            return redirect()->back()->with(['message' => 'У вас нет прав!']);
-        }*/
+        /*if( $request->user()->cannot('add', $article)) {
+             return redirect()->back()->with(['message' => 'У вас нет прав!']);
+         }*/
 
-            $this->validate($request, [
+        $this->validate($request, [
             'name' => 'required |  max:255 ',
             'brief' => 'required',
             'content' => 'required'
@@ -115,7 +115,7 @@ class IndexController extends Controller
         $article->user_id = $this->user->id;
         $article->save();
 
-        return redirect('/')->with(['message'=>'Материал добавлен!']);
+        return redirect('/')->with(['message' => 'Материал добавлен!']);
     }
 
     /**
@@ -128,7 +128,7 @@ class IndexController extends Controller
     {
         $article = Article::find($id);
 
-        return view('article-content')->with(['header' => $this->header, 'message' => $this->message, 'article' => $article]);
+        return view('article-content', ['header' => $this->header, 'message' => $this->message, 'article' => $article]);
     }
 
     /**
@@ -185,8 +185,6 @@ class IndexController extends Controller
         return redirect('/')->with(['message' => 'Материал обнавлен!']);
 
 
-
-
     }
 
     /**
@@ -200,8 +198,7 @@ class IndexController extends Controller
         $data = $request->all();
 
 
-
-        if ( !isset($data['del']) || $data['del'] != 'true') {
+        if (!isset($data['del']) || $data['del'] != 'true') {
 
             return redirect('/');
 

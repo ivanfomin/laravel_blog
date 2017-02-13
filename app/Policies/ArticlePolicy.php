@@ -20,11 +20,12 @@ class ArticlePolicy
         //
     }
 
-    public function add(User $user) {
+    public function add(User $user)
+    {
 
-        foreach($user->roles as $role) {
+        foreach ($user->roles as $role) {
 
-            if($role->name == 'Admin') {
+            if ($role->name == 'Admin') {
                 return TRUE;
             }
 
@@ -34,8 +35,9 @@ class ArticlePolicy
     }
 
 
-    public function update(User $user, Article $article) {
-        if($user->id == $article->user_id) {
+    public function update(User $user, Article $article)
+    {
+        if ($user->id == $article->user_id) {
             return true;
         }
         return false;

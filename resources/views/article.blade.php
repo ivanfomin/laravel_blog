@@ -23,31 +23,31 @@
                     <p>
                         @can('update', $article)
 
-                        <div>
+                            <div>
                     <p><a class="btn btn-info" href="{{ route('editArticle', ['id'=>$article->id]) }}" role="button">
                             Редактировать&raquo;</a></p>
                 </div>
 
 
-                    <form action="{{ route('articleDelete', ['article' => $article->id]) }}" method="post">
+                <form action="{{ route('articleDelete', ['article' => $article->id]) }}" method="post">
 
-                        <!--<input type="hidden" name="_method" value="DELETE">-->
+                    <!--<input type="hidden" name="_method" value="DELETE">-->
 
 
-                        {{ method_field('DELETE') }}
+                    {{ method_field('DELETE') }}
 
-                        {{ csrf_field() }}
+                    {{ csrf_field() }}
 
-                        <button type="submit" class="btn btn-danger">
-                            Delete
-                        </button>
+                    <button type="submit" class="btn btn-danger">
+                        Delete
+                    </button>
 
-                    </form>
+                </form>
 
-                    </p>
+                </p>
                 @endcan
 
-                    <hr>
+                <hr>
 
         </div>
         @endforeach

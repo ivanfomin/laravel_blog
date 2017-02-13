@@ -30,29 +30,29 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-       /* Gate::define('add-content', function (User $user) {
+        /* Gate::define('add-content', function (User $user) {
 
-            foreach ($user->roles as $role) {
-                if($role->name == 'Admin') {
-                    return true;
-                }
-            }
+             foreach ($user->roles as $role) {
+                 if($role->name == 'Admin') {
+                     return true;
+                 }
+             }
 
-            return false;
+             return false;
 
 
-        });
+         });
 
-        Gate::define('update-content', function (User $user, $article) {
+         Gate::define('update-content', function (User $user, $article) {
 
-                if($user->id == $article->user_id) {
-                    return true;
-                }
+                 if($user->id == $article->user_id) {
+                     return true;
+                 }
 
-            return false;
-        });
+             return false;
+         });
 
-*/
+ */
 
 
         //

@@ -8,11 +8,11 @@
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-        @if($article)
+            @if($article)
                 <h2>{{ $article->name }}</h2>
                 <h3>{!! $article->brief !!}</h3>
                 <img src="{!! $article->img  !!} " align="middle"></img>
-            <hr align="center" color="blue"  width="480px">
+                <hr align="center" color="blue" width="480px">
 
                 <div class="jumbotron">
                     <div class="container">
