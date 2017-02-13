@@ -15,7 +15,7 @@
             <div class="form">
 
 
-                <form method="POST" action="{{route('')}}">
+                <form method="POST" action="{{route('articleStore')}}">
                     <div class="form-group">
                         <label for="name">Заголовок</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Заголовок">

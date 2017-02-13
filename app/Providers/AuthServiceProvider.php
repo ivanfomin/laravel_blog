@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Article;
+use App\Policies\ArticlePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\User;
@@ -15,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        Article::class => ArticlePolicy::class,
     ];
 
     /**
@@ -22,11 +25,12 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function boot()
     {
         $this->registerPolicies();
 
-        Gate::define('add-content', function (User $user) {
+       /* Gate::define('add-content', function (User $user) {
 
             foreach ($user->roles as $role) {
                 if($role->name == 'Admin') {
@@ -48,9 +52,10 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-
+*/
 
 
         //
+
     }
 }

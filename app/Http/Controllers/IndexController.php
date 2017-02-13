@@ -94,21 +94,22 @@ class IndexController extends Controller
 
         $this->user = Auth::user();
 
-        if(Gate::denies('add-content')) {
+        /*if(Gate::denies('add-content')) {
             return redirect()->back()->with(['message'=>'У вас нет прав!']);
-        }
+        }*/
+        $article = new Article();
 
-        $this->validate($request, [
+       /*if( $request->user()->cannot('add', $article)) {
+            return redirect()->back()->with(['message' => 'У вас нет прав!']);
+        }*/
+
+            $this->validate($request, [
             'name' => 'required |  max:255 ',
             'brief' => 'required',
             'content' => 'required'
         ]);
 
-
-
         $data = $request->all();
-
-        $article = new Article();
 
         $article->fill($data);
         $article->user_id = $this->user->id;
@@ -159,8 +160,15 @@ class IndexController extends Controller
 
         $article = Article::find($data['id']);
 
-        if(Gate::allows('update-content', $article)) {
+        /*if(Gate::allows('update-content', $article)) {
 
+            $article->fill($data);
+
+            $article->save();
+
+            return redirect('/')->with(['message' => 'Материал обнавлен!']);
+        }*/
+        /*if($request->user()->can('update', $article)) {
             $article->fill($data);
 
             $article->save();
@@ -168,7 +176,16 @@ class IndexController extends Controller
             return redirect('/')->with(['message' => 'Материал обнавлен!']);
         }
 
-        return redirect()->back()->with(['message'=>'У вас нет прав!']);
+        return redirect()->back()->with(['message'=>'У вас нет прав!']);*/
+
+        $article->fill($data);
+
+        $article->save();
+
+        return redirect('/')->with(['message' => 'Материал обнавлен!']);
+
+
+
 
     }
 
