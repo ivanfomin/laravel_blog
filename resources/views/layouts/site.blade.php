@@ -18,7 +18,7 @@
             <a class="navbar-brand" href="#">{{ $header }}</a>
         </div>
         <ul id="navbar" class="menu">
-            <li><a href="{{route('home')}}">Home</a></li>
+            <li><a href="{{route('articles')}}">Home</a></li>
             <li><a href="{{route('home')}}">Articles</a></li>
             <li><a href="{{route('articleShow',array('id'=>1))}}">Article</a></li>
             <li><a href="https://github.com/laravel/laravel">GitHub</a></li>

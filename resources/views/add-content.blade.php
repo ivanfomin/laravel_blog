@@ -6,9 +6,16 @@
         <!-- Example row of columns -->
         <div class="row">
 
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+
             <div class="form">
 
-                <form method="POST" action="{{route('articleStore')}}">
+
+                <form method="POST" action="{{route('')}}">
                     <div class="form-group">
                         <label for="name">Заголовок</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Заголовок">
@@ -35,7 +42,6 @@
                     {{ csrf_field() }}
 
                 </form>
-
 
 
             </div>

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use Auth;
+use Gate;
 
 class IndexController extends Controller
 {
@@ -29,7 +30,6 @@ class IndexController extends Controller
         $this->middleware('auth');
 
 
-
     }
 
 
@@ -45,20 +45,30 @@ class IndexController extends Controller
         //dump($this->user);
         $this->user = Auth::user();
 
-        $articles = Article::select(['id', 'name', 'brief', 'img', 'content','user_id'])->get();
+        $articles = Article::select(['id', 'name', 'brief', 'img', 'content', 'user_id'])->get();
 
         return view('article')->with(['header' => $this->header, 'message' => $this->message, 'articles' => $articles, 'user' => $this->user]);
 
     }
 
-    public function add(Request $request=null)
+    public function add(Request $request = null)
     {
-        if($request->isMethod('post')) {
-           $request->flash();
+        if ($request->isMethod('post')) {
+            $request->flash();
         }
         return view('add-content')->with(['header' => $this->header, 'message' => $this->message]);
 
     }
+
+    public function edit($id)
+    {
+        $article = Article::find($id);
+
+        return view('update-content')->with(['header' => $this->header, 'message' => $this->message, 'article' => $article]);
+
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -78,15 +88,22 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        $this->user = Auth::user();
-
 
         $request->flash();
+        //$request->flashOnly('name', 'brief', 'content');
+
+        $this->user = Auth::user();
+
+        if(Gate::denies('add-content')) {
+            return redirect()->back()->with(['message'=>'У вас нет прав!']);
+        }
+
         $this->validate($request, [
             'name' => 'required |  max:255 ',
             'brief' => 'required',
             'content' => 'required'
         ]);
+
 
 
         $data = $request->all();
@@ -97,12 +114,12 @@ class IndexController extends Controller
         $article->user_id = $this->user->id;
         $article->save();
 
-        return redirect('/');
+        return redirect('/')->with(['message'=>'Материал добавлен!']);
     }
 
     /**
      * Display the specified resource.
-  321654   *
+     * 321654   *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -119,10 +136,7 @@ class IndexController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -131,9 +145,31 @@ class IndexController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required |  max:255 ',
+            'brief' => 'required',
+            'content' => 'required'
+        ]);
+
+        $this->user = Auth::user();
+
+        $data = $request->all();
+
+        $article = Article::find($data['id']);
+
+        if(Gate::allows('update-content', $article)) {
+
+            $article->fill($data);
+
+            $article->save();
+
+            return redirect('/')->with(['message' => 'Материал обнавлен!']);
+        }
+
+        return redirect()->back()->with(['message'=>'У вас нет прав!']);
+
     }
 
     /**
@@ -145,10 +181,17 @@ class IndexController extends Controller
     public function destroy(Request $request)
     {
         $data = $request->all();
-        if ($data['del'] == 'true') {
-            return $this->delete($data['art']);
-        } else
+
+
+
+        if ( !isset($data['del']) || $data['del'] != 'true') {
+
             return redirect('/');
+
+        } else {
+
+            return $this->delete($data['art']);
+        }
     }
 
     public function delete($article)
