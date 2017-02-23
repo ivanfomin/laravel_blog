@@ -13,7 +13,7 @@
             @endif
 
             <div class="form">
-
+                <!-- Comment-->
 
                 <form method="POST" action="{{route('articleStore')}}">
                     <div class="form-group">
